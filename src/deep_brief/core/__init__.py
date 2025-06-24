@@ -1,0 +1,1 @@
+"""Core video processing components."""

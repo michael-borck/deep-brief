@@ -7,16 +7,146 @@ A video analysis application that helps students, educators, and professionals a
 ## 🏷️ Project Names and Taglines
 
 ### Top Candidates
-1. **DeepBrief** ⭐
+1. **FrameFocus** ⭐
+   - *"Focus on what matters, frame by frame."*
+2. **DeepBrief** ⭐
    - *"Summarize visuals, voices, and everything in between."*
+3. **VidInsight**
+   - *"Transform videos into actionable insights."*
 
 ### Other Options
-- **VidInsight** - *"Transform videos into actionable insights."*
-- **FrameFocus** - *"Focus on what matters, frame by frame."*
 - **SceneSense** - *"Understand the scenes, not just the screen."*
 - **Visiolyze** - *"See what's said. Hear what's shown."*
 - **SynqLens** - *"Bringing speech and visuals into focus."*
 - **TalkToScene** - *"Let your video speak for itself."*
+
+## 🖥️ Frontend Architecture & Strategy
+
+### Frontend Evolution Plan
+
+#### Phase 1: Gradio MVP (Months 1-2)
+**Why Gradio for MVP:**
+- Fastest path to working prototype
+- Built-in file upload/processing workflow
+- Can create professional-looking dashboards
+- Supports both local and web deployment
+- Easy to style with themes and custom CSS
+
+**Gradio Capabilities:**
+- ✅ File upload/download
+- ✅ Real-time progress updates
+- ✅ Interactive charts (Plotly integration)
+- ✅ Professional themes available
+- ✅ Dashboard layouts with gr.Blocks
+- ❌ Limited for real-time video streaming
+- ❌ Not ideal for complex interactions
+
+#### Phase 2: Flet Desktop App (Months 3-4)
+**Why Add Flet:**
+- Native desktop experience
+- Better for privacy-conscious users
+- Easy distribution (.exe/.app)
+- No web browser required
+- More control over user experience
+
+**Architecture Pattern:**
+```
+┌─────────────────────┐
+│   Core Analysis     │  (Shared between all frontends)
+│   VideoAnalyzer     │
+│   ReportGenerator   │
+└──────────┬──────────┘
+           │
+    ┌──────┴──────┬────────────┐
+    │             │            │
+┌───▼────┐ ┌─────▼────┐ ┌─────▼────┐
+│ Gradio │ │   Flet   │ │   CLI    │
+│  Web   │ │ Desktop  │ │  Tool    │
+└────────┘ └──────────┘ └──────────┘
+```
+
+#### Phase 3: Advanced Options (Months 5+)
+- **PWA**: For mobile access
+- **FastAPI + React**: If enterprise features needed
+- **Electron**: If cross-platform desktop with web tech preferred
+
+### Frontend Replaceability
+
+**Core Principle**: Keep business logic separate from UI
+
+```python
+# core/analyzer.py
+class VideoAnalyzer:
+    def analyze(self, video_path, config):
+        # All processing logic here
+        return AnalysisResults(...)
+
+# frontends/gradio_app.py
+from core.analyzer import VideoAnalyzer
+
+def create_gradio_interface():
+    analyzer = VideoAnalyzer()
+    # Gradio-specific UI code
+    
+# frontends/flet_app.py
+from core.analyzer import VideoAnalyzer
+
+def create_flet_app():
+    analyzer = VideoAnalyzer()
+    # Flet-specific UI code
+```
+
+### Making Gradio Professional
+
+```python
+# Professional Gradio configuration
+custom_theme = gr.themes.Soft(
+    primary_hue="blue",
+    secondary_hue="gray",
+    font=gr.themes.GoogleFont("Inter")
+)
+
+custom_css = """
+    /* Hide Gradio branding */
+    footer { display: none !important; }
+    
+    /* Professional styling */
+    .gradio-container {
+        max-width: 1200px;
+        margin: auto;
+    }
+"""
+```
+
+### Deployment Strategy
+
+1. **MVP Deployment**:
+   ```bash
+   # Local mode (privacy-focused)
+   python app.py --local
+   
+   # Shareable link (still processes locally)
+   python app.py --share
+   ```
+
+2. **Phase 2 Deployment**:
+   ```bash
+   # Gradio web version
+   python app_gradio.py
+   
+   # Flet desktop version
+   flet pack app_flet.py --name FrameFocus
+   ```
+
+### Real-time Analysis Considerations
+
+Real-time video analysis is complex and not recommended for early phases:
+- Requires WebRTC for video streaming
+- Need WebSockets for live updates
+- Complex buffering and synchronization
+- Better suited for Phase 4+
+
+**Current Approach**: Focus on batch processing with progress updates
 
 ---
 
@@ -40,10 +170,10 @@ A video analysis application that helps students, educators, and professionals a
    - Transcript with timestamps
 
 ### MVP Technical Stack
-- **Backend**: Python with FastAPI
+- **Backend**: Python with modular architecture
 - **Processing**: ffmpeg, Whisper (local), basic OpenCV
-- **Frontend**: Simple web interface (Gradio or Streamlit)
-- **Deployment**: Standalone executable or simple web app
+- **Frontend**: Gradio for MVP (professional theme, dashboard capable)
+- **Deployment**: Local web interface with option for desktop app
 
 ---
 
@@ -160,7 +290,9 @@ graph LR
 | **Scene Detection** | ffmpeg scene filter | PySceneDetect, OpenCV | Start simple |
 | **Vision Model** | BLIP-2 | GPT-4V, LLaVA | Balance cost/quality |
 | **Text Analysis** | spaCy + GPT-3.5 | Claude, local LLMs | Hybrid approach |
-| **GUI** | Gradio | Streamlit, Flet, FastAPI+React | Quick prototyping |
+| **Frontend (MVP)** | Gradio | Will add Flet in Phase 2 | Professional themes available |
+| **Frontend (Phase 2)** | Flet (Desktop) | Keep Gradio for web | Native app experience |
+| **Frontend (Future)** | FastAPI + React | For advanced web app | Only if scaling needed |
 | **Diarization** | pyannote.audio | AWS Transcribe | Added in Phase 2 |
 
 ### Infrastructure Options
@@ -683,7 +815,7 @@ output:
 - **Project Lead**: Michael Borck
 - **Repository**: https://github.com/michael-borck/deep-brief
 - **Documentation**: [Docs Link]
-- **Support**: michael@borck.education
+- **Support**: support@frameocus.app
 
 ### How to Contribute
 1. Fork the repository
