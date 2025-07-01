@@ -1,0 +1,2120 @@
+{
+  "$defs": {
+    "AnalysisInsights": {
+      "description": "High-level insights and recommendations derived from the analysis.",
+      "properties": {
+        "presentation_strengths": {
+          "description": "Identified strengths in the presentation",
+          "items": {
+            "type": "string"
+          },
+          "title": "Presentation Strengths",
+          "type": "array"
+        },
+        "improvement_recommendations": {
+          "description": "Specific recommendations for improvement",
+          "items": {
+            "type": "string"
+          },
+          "title": "Improvement Recommendations",
+          "type": "array"
+        },
+        "speaking_quality_assessment": {
+          "additionalProperties": true,
+          "description": "Assessment of speaking quality and delivery",
+          "title": "Speaking Quality Assessment",
+          "type": "object"
+        },
+        "visual_quality_assessment": {
+          "additionalProperties": true,
+          "description": "Assessment of visual content and slide quality",
+          "title": "Visual Quality Assessment",
+          "type": "object"
+        },
+        "engagement_factors": {
+          "additionalProperties": true,
+          "description": "Factors that may affect audience engagement",
+          "title": "Engagement Factors",
+          "type": "object"
+        },
+        "accessibility_assessment": {
+          "additionalProperties": true,
+          "description": "Assessment of content accessibility",
+          "title": "Accessibility Assessment",
+          "type": "object"
+        },
+        "key_findings": {
+          "description": "Key findings from the analysis",
+          "items": {
+            "type": "string"
+          },
+          "title": "Key Findings",
+          "type": "array"
+        },
+        "action_items": {
+          "description": "Specific action items for content improvement",
+          "items": {
+            "type": "string"
+          },
+          "title": "Action Items",
+          "type": "array"
+        }
+      },
+      "title": "AnalysisInsights",
+      "type": "object"
+    },
+    "CaptionResult": {
+      "description": "Result of image captioning operation.",
+      "properties": {
+        "caption": {
+          "title": "Caption",
+          "type": "string"
+        },
+        "confidence": {
+          "title": "Confidence",
+          "type": "number"
+        },
+        "processing_time": {
+          "title": "Processing Time",
+          "type": "number"
+        },
+        "model_used": {
+          "title": "Model Used",
+          "type": "string"
+        },
+        "tokens_generated": {
+          "title": "Tokens Generated",
+          "type": "integer"
+        },
+        "alternative_captions": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Alternative Captions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "caption",
+        "confidence",
+        "processing_time",
+        "model_used",
+        "tokens_generated"
+      ],
+      "title": "CaptionResult",
+      "type": "object"
+    },
+    "ContentSummary": {
+      "description": "High-level summary of video content and analysis results.",
+      "properties": {
+        "content_type": {
+          "description": "Detected content type",
+          "enum": [
+            "presentation",
+            "lecture",
+            "meeting",
+            "interview",
+            "video",
+            "unknown"
+          ],
+          "title": "Content Type",
+          "type": "string"
+        },
+        "content_confidence": {
+          "description": "Confidence in content type detection (0-1)",
+          "title": "Content Confidence",
+          "type": "number"
+        },
+        "primary_language": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Primary language detected",
+          "title": "Primary Language"
+        },
+        "languages_detected": {
+          "description": "All languages detected in the content",
+          "items": {
+            "type": "string"
+          },
+          "title": "Languages Detected",
+          "type": "array"
+        },
+        "estimated_speaker_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Estimated number of speakers",
+          "title": "Estimated Speaker Count"
+        },
+        "speaker_change_points": {
+          "description": "Timestamps where speaker likely changed",
+          "items": {
+            "type": "number"
+          },
+          "title": "Speaker Change Points",
+          "type": "array"
+        },
+        "has_slides": {
+          "default": false,
+          "description": "Whether presentation slides are detected",
+          "title": "Has Slides",
+          "type": "boolean"
+        },
+        "has_charts": {
+          "default": false,
+          "description": "Whether charts/graphs are detected",
+          "title": "Has Charts",
+          "type": "boolean"
+        },
+        "has_text_overlays": {
+          "default": false,
+          "description": "Whether text overlays are present",
+          "title": "Has Text Overlays",
+          "type": "boolean"
+        },
+        "has_presenter": {
+          "default": false,
+          "description": "Whether a presenter is visible",
+          "title": "Has Presenter",
+          "type": "boolean"
+        },
+        "key_topics": {
+          "description": "Key topics identified in the content",
+          "items": {
+            "type": "string"
+          },
+          "title": "Key Topics",
+          "type": "array"
+        },
+        "main_themes": {
+          "description": "Main themes identified in the content",
+          "items": {
+            "type": "string"
+          },
+          "title": "Main Themes",
+          "type": "array"
+        },
+        "total_word_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Total word count from transcription",
+          "title": "Total Word Count"
+        },
+        "average_speaking_rate": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Average speaking rate (WPM)",
+          "title": "Average Speaking Rate"
+        },
+        "pause_frequency": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Frequency of pauses per minute",
+          "title": "Pause Frequency"
+        }
+      },
+      "required": [
+        "content_type",
+        "content_confidence"
+      ],
+      "title": "ContentSummary",
+      "type": "object"
+    },
+    "DetectedObject": {
+      "description": "Information about a detected object.",
+      "properties": {
+        "element_type": {
+          "$ref": "#/$defs/PresentationElement"
+        },
+        "confidence": {
+          "title": "Confidence",
+          "type": "number"
+        },
+        "bbox": {
+          "maxItems": 4,
+          "minItems": 4,
+          "prefixItems": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "integer"
+            }
+          ],
+          "title": "Bbox",
+          "type": "array"
+        },
+        "center": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Center",
+          "type": "array"
+        },
+        "area_ratio": {
+          "title": "Area Ratio",
+          "type": "number"
+        },
+        "attributes": {
+          "additionalProperties": true,
+          "default": {},
+          "title": "Attributes",
+          "type": "object"
+        }
+      },
+      "required": [
+        "element_type",
+        "confidence",
+        "bbox",
+        "center",
+        "area_ratio"
+      ],
+      "title": "DetectedObject",
+      "type": "object"
+    },
+    "ExtractedFrame": {
+      "description": "Information about an extracted frame.",
+      "properties": {
+        "frame_number": {
+          "title": "Frame Number",
+          "type": "integer"
+        },
+        "timestamp": {
+          "title": "Timestamp",
+          "type": "number"
+        },
+        "scene_number": {
+          "title": "Scene Number",
+          "type": "integer"
+        },
+        "file_path": {
+          "anyOf": [
+            {
+              "format": "path",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "File Path"
+        },
+        "width": {
+          "title": "Width",
+          "type": "integer"
+        },
+        "height": {
+          "title": "Height",
+          "type": "integer"
+        },
+        "quality_metrics": {
+          "$ref": "#/$defs/FrameQualityMetrics"
+        },
+        "caption_result": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CaptionResult"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "ocr_result": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OCRResult"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "object_detection_result": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ObjectDetectionResult"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "frame_number",
+        "timestamp",
+        "scene_number",
+        "width",
+        "height",
+        "quality_metrics"
+      ],
+      "title": "ExtractedFrame",
+      "type": "object"
+    },
+    "FrameQualityMetrics": {
+      "description": "Quality metrics for a single frame.",
+      "properties": {
+        "blur_score": {
+          "title": "Blur Score",
+          "type": "number"
+        },
+        "blur_category": {
+          "title": "Blur Category",
+          "type": "string"
+        },
+        "contrast_score": {
+          "title": "Contrast Score",
+          "type": "number"
+        },
+        "contrast_category": {
+          "title": "Contrast Category",
+          "type": "string"
+        },
+        "brightness_score": {
+          "title": "Brightness Score",
+          "type": "number"
+        },
+        "brightness_category": {
+          "title": "Brightness Category",
+          "type": "string"
+        },
+        "overall_quality_score": {
+          "title": "Overall Quality Score",
+          "type": "number"
+        },
+        "overall_quality_category": {
+          "title": "Overall Quality Category",
+          "type": "string"
+        },
+        "histogram_metrics": {
+          "additionalProperties": true,
+          "title": "Histogram Metrics",
+          "type": "object"
+        },
+        "sharpness_details": {
+          "additionalProperties": true,
+          "title": "Sharpness Details",
+          "type": "object"
+        },
+        "color_metrics": {
+          "additionalProperties": true,
+          "title": "Color Metrics",
+          "type": "object"
+        },
+        "noise_metrics": {
+          "additionalProperties": true,
+          "title": "Noise Metrics",
+          "type": "object"
+        },
+        "composition_metrics": {
+          "additionalProperties": true,
+          "title": "Composition Metrics",
+          "type": "object"
+        },
+        "quality_report": {
+          "additionalProperties": true,
+          "title": "Quality Report",
+          "type": "object"
+        }
+      },
+      "required": [
+        "blur_score",
+        "blur_category",
+        "contrast_score",
+        "contrast_category",
+        "brightness_score",
+        "brightness_category",
+        "overall_quality_score",
+        "overall_quality_category",
+        "histogram_metrics",
+        "sharpness_details",
+        "color_metrics",
+        "noise_metrics",
+        "composition_metrics",
+        "quality_report"
+      ],
+      "title": "FrameQualityMetrics",
+      "type": "object"
+    },
+    "LanguageDetectionResult": {
+      "description": "Language detection result with confidence scores.",
+      "properties": {
+        "detected_language": {
+          "title": "Detected Language",
+          "type": "string"
+        },
+        "confidence": {
+          "title": "Confidence",
+          "type": "number"
+        },
+        "all_probabilities": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "default": {},
+          "title": "All Probabilities",
+          "type": "object"
+        },
+        "detection_method": {
+          "title": "Detection Method",
+          "type": "string"
+        }
+      },
+      "required": [
+        "detected_language",
+        "confidence",
+        "detection_method"
+      ],
+      "title": "LanguageDetectionResult",
+      "type": "object"
+    },
+    "OCRResult": {
+      "description": "Result of OCR operation on an image.",
+      "properties": {
+        "text_regions": {
+          "items": {
+            "$ref": "#/$defs/TextRegion"
+          },
+          "title": "Text Regions",
+          "type": "array"
+        },
+        "full_text": {
+          "title": "Full Text",
+          "type": "string"
+        },
+        "processing_time": {
+          "title": "Processing Time",
+          "type": "number"
+        },
+        "engine_used": {
+          "title": "Engine Used",
+          "type": "string"
+        },
+        "languages_detected": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Languages Detected",
+          "type": "array"
+        },
+        "total_text_regions": {
+          "title": "Total Text Regions",
+          "type": "integer"
+        },
+        "high_confidence_regions": {
+          "title": "High Confidence Regions",
+          "type": "integer"
+        },
+        "average_confidence": {
+          "title": "Average Confidence",
+          "type": "number"
+        }
+      },
+      "required": [
+        "text_regions",
+        "full_text",
+        "processing_time",
+        "engine_used",
+        "languages_detected",
+        "total_text_regions",
+        "high_confidence_regions",
+        "average_confidence"
+      ],
+      "title": "OCRResult",
+      "type": "object"
+    },
+    "ObjectDetectionResult": {
+      "description": "Results from object detection on a frame.",
+      "properties": {
+        "detected_objects": {
+          "items": {
+            "$ref": "#/$defs/DetectedObject"
+          },
+          "title": "Detected Objects",
+          "type": "array"
+        },
+        "total_objects": {
+          "title": "Total Objects",
+          "type": "integer"
+        },
+        "processing_time": {
+          "title": "Processing Time",
+          "type": "number"
+        },
+        "frame_width": {
+          "title": "Frame Width",
+          "type": "integer"
+        },
+        "frame_height": {
+          "title": "Frame Height",
+          "type": "integer"
+        },
+        "element_counts": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Element Counts",
+          "type": "object"
+        },
+        "high_confidence_objects": {
+          "title": "High Confidence Objects",
+          "type": "integer"
+        },
+        "average_confidence": {
+          "title": "Average Confidence",
+          "type": "number"
+        },
+        "layout_type": {
+          "title": "Layout Type",
+          "type": "string"
+        },
+        "has_presenter": {
+          "title": "Has Presenter",
+          "type": "boolean"
+        },
+        "dominant_element": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Dominant Element"
+        }
+      },
+      "required": [
+        "detected_objects",
+        "total_objects",
+        "processing_time",
+        "frame_width",
+        "frame_height",
+        "element_counts",
+        "high_confidence_objects",
+        "average_confidence",
+        "layout_type",
+        "has_presenter",
+        "dominant_element"
+      ],
+      "title": "ObjectDetectionResult",
+      "type": "object"
+    },
+    "OverallSpeechMetrics": {
+      "description": "Overall speech metrics across all scenes.",
+      "properties": {
+        "total_duration": {
+          "title": "Total Duration",
+          "type": "number"
+        },
+        "total_scenes": {
+          "title": "Total Scenes",
+          "type": "integer"
+        },
+        "total_word_count": {
+          "title": "Total Word Count",
+          "type": "integer"
+        },
+        "average_wpm": {
+          "title": "Average Wpm",
+          "type": "number"
+        },
+        "median_wpm": {
+          "title": "Median Wpm",
+          "type": "number"
+        },
+        "min_wpm": {
+          "title": "Min Wpm",
+          "type": "number"
+        },
+        "max_wpm": {
+          "title": "Max Wpm",
+          "type": "number"
+        },
+        "overall_speech_ratio": {
+          "title": "Overall Speech Ratio",
+          "type": "number"
+        },
+        "total_speaking_time": {
+          "title": "Total Speaking Time",
+          "type": "number"
+        },
+        "total_pause_time": {
+          "title": "Total Pause Time",
+          "type": "number"
+        },
+        "wpm_variance": {
+          "title": "Wpm Variance",
+          "type": "number"
+        },
+        "wpm_standard_deviation": {
+          "title": "Wpm Standard Deviation",
+          "type": "number"
+        },
+        "total_characters": {
+          "title": "Total Characters",
+          "type": "integer"
+        },
+        "total_sentences": {
+          "title": "Total Sentences",
+          "type": "integer"
+        },
+        "average_words_per_sentence": {
+          "title": "Average Words Per Sentence",
+          "type": "number"
+        },
+        "overall_confidence": {
+          "title": "Overall Confidence",
+          "type": "number"
+        },
+        "low_confidence_percentage": {
+          "title": "Low Confidence Percentage",
+          "type": "number"
+        },
+        "total_filler_words": {
+          "title": "Total Filler Words",
+          "type": "integer"
+        },
+        "filler_word_rate": {
+          "title": "Filler Word Rate",
+          "type": "number"
+        },
+        "most_common_filler_words": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Most Common Filler Words",
+          "type": "array"
+        },
+        "total_silence_time": {
+          "title": "Total Silence Time",
+          "type": "number"
+        },
+        "overall_silence_ratio": {
+          "title": "Overall Silence Ratio",
+          "type": "number"
+        },
+        "average_silence_per_scene": {
+          "title": "Average Silence Per Scene",
+          "type": "number"
+        },
+        "longest_silence_overall": {
+          "title": "Longest Silence Overall",
+          "type": "number"
+        },
+        "total_silence_segments": {
+          "title": "Total Silence Segments",
+          "type": "integer"
+        },
+        "overall_sentiment_score": {
+          "title": "Overall Sentiment Score",
+          "type": "number"
+        },
+        "sentiment_distribution": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Sentiment Distribution",
+          "type": "object"
+        },
+        "most_positive_scene": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Most Positive Scene"
+        },
+        "most_negative_scene": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Most Negative Scene"
+        },
+        "emotional_intensity": {
+          "title": "Emotional Intensity",
+          "type": "number"
+        },
+        "total_emotional_keywords": {
+          "title": "Total Emotional Keywords",
+          "type": "integer"
+        },
+        "overall_quality_score": {
+          "title": "Overall Quality Score",
+          "type": "number"
+        },
+        "quality_distribution": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Quality Distribution",
+          "type": "object"
+        },
+        "average_confidence": {
+          "title": "Average Confidence",
+          "type": "number"
+        },
+        "low_quality_scenes": {
+          "items": {
+            "type": "integer"
+          },
+          "title": "Low Quality Scenes",
+          "type": "array"
+        },
+        "critical_issues": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Critical Issues",
+          "type": "array"
+        },
+        "transcription_reliability": {
+          "title": "Transcription Reliability",
+          "type": "number"
+        },
+        "recommended_actions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Recommended Actions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "total_duration",
+        "total_scenes",
+        "total_word_count",
+        "average_wpm",
+        "median_wpm",
+        "min_wpm",
+        "max_wpm",
+        "overall_speech_ratio",
+        "total_speaking_time",
+        "total_pause_time",
+        "wpm_variance",
+        "wpm_standard_deviation",
+        "total_characters",
+        "total_sentences",
+        "average_words_per_sentence",
+        "overall_confidence",
+        "low_confidence_percentage",
+        "total_filler_words",
+        "filler_word_rate",
+        "most_common_filler_words",
+        "total_silence_time",
+        "overall_silence_ratio",
+        "average_silence_per_scene",
+        "longest_silence_overall",
+        "total_silence_segments",
+        "overall_sentiment_score",
+        "sentiment_distribution",
+        "most_positive_scene",
+        "most_negative_scene",
+        "emotional_intensity",
+        "total_emotional_keywords",
+        "overall_quality_score",
+        "quality_distribution",
+        "average_confidence",
+        "low_quality_scenes",
+        "critical_issues",
+        "transcription_reliability",
+        "recommended_actions"
+      ],
+      "title": "OverallSpeechMetrics",
+      "type": "object"
+    },
+    "PresentationElement": {
+      "description": "Types of presentation elements that can be detected.",
+      "enum": [
+        "slide",
+        "chart",
+        "diagram",
+        "text_block",
+        "table",
+        "image",
+        "code_block",
+        "bullet_list",
+        "title",
+        "logo",
+        "graph",
+        "screenshot",
+        "person",
+        "whiteboard",
+        "annotation"
+      ],
+      "title": "PresentationElement",
+      "type": "string"
+    },
+    "ProcessingMetadata": {
+      "description": "Metadata about the analysis processing pipeline.",
+      "properties": {
+        "start_time": {
+          "description": "When analysis started",
+          "format": "date-time",
+          "title": "Start Time",
+          "type": "string"
+        },
+        "end_time": {
+          "description": "When analysis completed",
+          "format": "date-time",
+          "title": "End Time",
+          "type": "string"
+        },
+        "total_processing_time": {
+          "description": "Total processing time in seconds",
+          "title": "Total Processing Time",
+          "type": "number"
+        },
+        "config_version": {
+          "description": "Configuration version used",
+          "title": "Config Version",
+          "type": "string"
+        },
+        "pipeline_version": {
+          "description": "Pipeline version",
+          "title": "Pipeline Version",
+          "type": "string"
+        },
+        "stage_timings": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "description": "Processing time for each pipeline stage",
+          "title": "Stage Timings",
+          "type": "object"
+        },
+        "peak_memory_usage_mb": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Peak memory usage",
+          "title": "Peak Memory Usage Mb"
+        },
+        "cpu_cores_used": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Number of CPU cores utilized",
+          "title": "Cpu Cores Used"
+        },
+        "gpu_used": {
+          "default": false,
+          "description": "Whether GPU acceleration was used",
+          "title": "Gpu Used",
+          "type": "boolean"
+        },
+        "overall_success_rate": {
+          "description": "Overall processing success rate (0-1)",
+          "title": "Overall Success Rate",
+          "type": "number"
+        },
+        "failed_components": {
+          "description": "List of components that failed during processing",
+          "items": {
+            "type": "string"
+          },
+          "title": "Failed Components",
+          "type": "array"
+        },
+        "warnings": {
+          "description": "Processing warnings and recoverable errors",
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        }
+      },
+      "required": [
+        "start_time",
+        "end_time",
+        "total_processing_time",
+        "config_version",
+        "pipeline_version",
+        "overall_success_rate"
+      ],
+      "title": "ProcessingMetadata",
+      "type": "object"
+    },
+    "QualityAssessment": {
+      "description": "Overall quality assessment of the analysis results.",
+      "properties": {
+        "overall_quality_score": {
+          "description": "Overall quality score (0-1)",
+          "title": "Overall Quality Score",
+          "type": "number"
+        },
+        "overall_quality_category": {
+          "description": "Overall quality category",
+          "enum": [
+            "excellent",
+            "good",
+            "fair",
+            "poor"
+          ],
+          "title": "Overall Quality Category",
+          "type": "string"
+        },
+        "audio_quality_score": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Audio quality score (0-1)",
+          "title": "Audio Quality Score"
+        },
+        "video_quality_score": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Video quality score (0-1)",
+          "title": "Video Quality Score"
+        },
+        "transcription_quality_score": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Transcription quality (0-1)",
+          "title": "Transcription Quality Score"
+        },
+        "quality_factors": {
+          "additionalProperties": true,
+          "description": "Detailed quality assessment factors",
+          "title": "Quality Factors",
+          "type": "object"
+        },
+        "quality_recommendations": {
+          "description": "Recommendations for improving analysis quality",
+          "items": {
+            "type": "string"
+          },
+          "title": "Quality Recommendations",
+          "type": "array"
+        },
+        "quality_issues": {
+          "description": "Specific quality issues identified during analysis",
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Quality Issues",
+          "type": "array"
+        }
+      },
+      "required": [
+        "overall_quality_score",
+        "overall_quality_category"
+      ],
+      "title": "QualityAssessment",
+      "type": "object"
+    },
+    "Scene": {
+      "description": "Scene information with timestamps and metadata.",
+      "properties": {
+        "start_time": {
+          "title": "Start Time",
+          "type": "number"
+        },
+        "end_time": {
+          "title": "End Time",
+          "type": "number"
+        },
+        "duration": {
+          "title": "Duration",
+          "type": "number"
+        },
+        "scene_number": {
+          "title": "Scene Number",
+          "type": "integer"
+        },
+        "confidence": {
+          "default": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        }
+      },
+      "required": [
+        "start_time",
+        "end_time",
+        "duration",
+        "scene_number"
+      ],
+      "title": "Scene",
+      "type": "object"
+    },
+    "SceneAnalysis": {
+      "description": "Complete analysis results for a single scene.",
+      "properties": {
+        "scene_info": {
+          "$ref": "#/$defs/Scene",
+          "description": "Basic scene information and timing"
+        },
+        "speech_metrics": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SceneSpeechMetrics"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Speech analysis results for this scene"
+        },
+        "frame_analysis": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SceneFrameAnalysis"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Visual frame analysis results for this scene"
+        },
+        "scene_summary": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Natural language summary of the scene",
+          "title": "Scene Summary"
+        },
+        "key_points": {
+          "description": "Key points or highlights from this scene",
+          "items": {
+            "type": "string"
+          },
+          "title": "Key Points",
+          "type": "array"
+        },
+        "scene_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Classified type of scene content",
+          "title": "Scene Type"
+        },
+        "scene_importance": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Relative importance score (0-1)",
+          "title": "Scene Importance"
+        },
+        "processing_success": {
+          "default": true,
+          "description": "Whether scene processing was successful",
+          "title": "Processing Success",
+          "type": "boolean"
+        },
+        "processing_errors": {
+          "description": "Errors encountered during scene processing",
+          "items": {
+            "type": "string"
+          },
+          "title": "Processing Errors",
+          "type": "array"
+        }
+      },
+      "required": [
+        "scene_info"
+      ],
+      "title": "SceneAnalysis",
+      "type": "object"
+    },
+    "SceneDetectionResult": {
+      "description": "Result of scene detection analysis.",
+      "properties": {
+        "scenes": {
+          "items": {
+            "$ref": "#/$defs/Scene"
+          },
+          "title": "Scenes",
+          "type": "array"
+        },
+        "total_scenes": {
+          "title": "Total Scenes",
+          "type": "integer"
+        },
+        "detection_method": {
+          "title": "Detection Method",
+          "type": "string"
+        },
+        "threshold_used": {
+          "title": "Threshold Used",
+          "type": "number"
+        },
+        "video_duration": {
+          "title": "Video Duration",
+          "type": "number"
+        },
+        "average_scene_duration": {
+          "title": "Average Scene Duration",
+          "type": "number"
+        }
+      },
+      "required": [
+        "scenes",
+        "total_scenes",
+        "detection_method",
+        "threshold_used",
+        "video_duration",
+        "average_scene_duration"
+      ],
+      "title": "SceneDetectionResult",
+      "type": "object"
+    },
+    "SceneFrameAnalysis": {
+      "description": "Frame analysis results for a single scene.",
+      "properties": {
+        "scene_number": {
+          "title": "Scene Number",
+          "type": "integer"
+        },
+        "start_time": {
+          "title": "Start Time",
+          "type": "number"
+        },
+        "end_time": {
+          "title": "End Time",
+          "type": "number"
+        },
+        "duration": {
+          "title": "Duration",
+          "type": "number"
+        },
+        "frames": {
+          "items": {
+            "$ref": "#/$defs/ExtractedFrame"
+          },
+          "title": "Frames",
+          "type": "array"
+        },
+        "total_frames_extracted": {
+          "title": "Total Frames Extracted",
+          "type": "integer"
+        },
+        "best_frame": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ExtractedFrame"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "average_quality_score": {
+          "title": "Average Quality Score",
+          "type": "number"
+        },
+        "quality_distribution": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Quality Distribution",
+          "type": "object"
+        },
+        "total_frames_processed": {
+          "title": "Total Frames Processed",
+          "type": "integer"
+        },
+        "frames_filtered_by_quality": {
+          "title": "Frames Filtered By Quality",
+          "type": "integer"
+        },
+        "extraction_success_rate": {
+          "title": "Extraction Success Rate",
+          "type": "number"
+        }
+      },
+      "required": [
+        "scene_number",
+        "start_time",
+        "end_time",
+        "duration",
+        "frames",
+        "total_frames_extracted",
+        "average_quality_score",
+        "quality_distribution",
+        "total_frames_processed",
+        "frames_filtered_by_quality",
+        "extraction_success_rate"
+      ],
+      "title": "SceneFrameAnalysis",
+      "type": "object"
+    },
+    "SceneSpeechMetrics": {
+      "description": "Speech metrics for a single scene.",
+      "properties": {
+        "scene_number": {
+          "title": "Scene Number",
+          "type": "integer"
+        },
+        "start_time": {
+          "title": "Start Time",
+          "type": "number"
+        },
+        "end_time": {
+          "title": "End Time",
+          "type": "number"
+        },
+        "duration": {
+          "title": "Duration",
+          "type": "number"
+        },
+        "word_count": {
+          "title": "Word Count",
+          "type": "integer"
+        },
+        "speaking_rate_wpm": {
+          "title": "Speaking Rate Wpm",
+          "type": "number"
+        },
+        "text_content": {
+          "title": "Text Content",
+          "type": "string"
+        },
+        "character_count": {
+          "title": "Character Count",
+          "type": "integer"
+        },
+        "sentence_count": {
+          "title": "Sentence Count",
+          "type": "integer"
+        },
+        "actual_speaking_time": {
+          "title": "Actual Speaking Time",
+          "type": "number"
+        },
+        "pause_time": {
+          "title": "Pause Time",
+          "type": "number"
+        },
+        "speech_ratio": {
+          "title": "Speech Ratio",
+          "type": "number"
+        },
+        "avg_confidence": {
+          "title": "Avg Confidence",
+          "type": "number"
+        },
+        "low_confidence_words": {
+          "title": "Low Confidence Words",
+          "type": "integer"
+        },
+        "filler_word_count": {
+          "title": "Filler Word Count",
+          "type": "integer"
+        },
+        "filler_word_rate": {
+          "title": "Filler Word Rate",
+          "type": "number"
+        },
+        "filler_words_detected": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Filler Words Detected",
+          "type": "array"
+        },
+        "silence_segments": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Silence Segments",
+          "type": "array"
+        },
+        "total_silence_time": {
+          "title": "Total Silence Time",
+          "type": "number"
+        },
+        "silence_ratio": {
+          "title": "Silence Ratio",
+          "type": "number"
+        },
+        "average_silence_duration": {
+          "title": "Average Silence Duration",
+          "type": "number"
+        },
+        "longest_silence_duration": {
+          "title": "Longest Silence Duration",
+          "type": "number"
+        },
+        "silence_count": {
+          "title": "Silence Count",
+          "type": "integer"
+        },
+        "sentiment_score": {
+          "title": "Sentiment Score",
+          "type": "number"
+        },
+        "sentiment_label": {
+          "title": "Sentiment Label",
+          "type": "string"
+        },
+        "sentiment_confidence": {
+          "title": "Sentiment Confidence",
+          "type": "number"
+        },
+        "emotional_keywords": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Emotional Keywords",
+          "type": "array"
+        },
+        "quality_score": {
+          "title": "Quality Score",
+          "type": "number"
+        },
+        "quality_category": {
+          "title": "Quality Category",
+          "type": "string"
+        },
+        "confidence_issues": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Confidence Issues",
+          "type": "array"
+        },
+        "segment_confidence_scores": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Segment Confidence Scores",
+          "type": "array"
+        },
+        "avg_segment_logprob": {
+          "title": "Avg Segment Logprob",
+          "type": "number"
+        },
+        "no_speech_ratio": {
+          "title": "No Speech Ratio",
+          "type": "number"
+        },
+        "problematic_segments": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Problematic Segments",
+          "type": "array"
+        }
+      },
+      "required": [
+        "scene_number",
+        "start_time",
+        "end_time",
+        "duration",
+        "word_count",
+        "speaking_rate_wpm",
+        "text_content",
+        "character_count",
+        "sentence_count",
+        "actual_speaking_time",
+        "pause_time",
+        "speech_ratio",
+        "avg_confidence",
+        "low_confidence_words",
+        "filler_word_count",
+        "filler_word_rate",
+        "filler_words_detected",
+        "silence_segments",
+        "total_silence_time",
+        "silence_ratio",
+        "average_silence_duration",
+        "longest_silence_duration",
+        "silence_count",
+        "sentiment_score",
+        "sentiment_label",
+        "sentiment_confidence",
+        "emotional_keywords",
+        "quality_score",
+        "quality_category",
+        "confidence_issues",
+        "segment_confidence_scores",
+        "avg_segment_logprob",
+        "no_speech_ratio",
+        "problematic_segments"
+      ],
+      "title": "SceneSpeechMetrics",
+      "type": "object"
+    },
+    "Segment": {
+      "description": "Transcription segment with timing and word-level details.",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "integer"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        },
+        "start": {
+          "title": "Start",
+          "type": "number"
+        },
+        "end": {
+          "title": "End",
+          "type": "number"
+        },
+        "avg_logprob": {
+          "title": "Avg Logprob",
+          "type": "number"
+        },
+        "no_speech_prob": {
+          "title": "No Speech Prob",
+          "type": "number"
+        },
+        "words": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/WordTimestamp"
+          },
+          "title": "Words",
+          "type": "array"
+        },
+        "language": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Language"
+        }
+      },
+      "required": [
+        "id",
+        "text",
+        "start",
+        "end",
+        "avg_logprob",
+        "no_speech_prob"
+      ],
+      "title": "Segment",
+      "type": "object"
+    },
+    "TextRegion": {
+      "description": "Detected text region with position and content.",
+      "properties": {
+        "text": {
+          "title": "Text",
+          "type": "string"
+        },
+        "confidence": {
+          "title": "Confidence",
+          "type": "number"
+        },
+        "bbox": {
+          "maxItems": 4,
+          "minItems": 4,
+          "prefixItems": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "integer"
+            }
+          ],
+          "title": "Bbox",
+          "type": "array"
+        },
+        "language": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Language"
+        },
+        "font_size_estimate": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Font Size Estimate"
+        },
+        "is_title": {
+          "default": false,
+          "title": "Is Title",
+          "type": "boolean"
+        },
+        "is_slide_number": {
+          "default": false,
+          "title": "Is Slide Number",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "text",
+        "confidence",
+        "bbox"
+      ],
+      "title": "TextRegion",
+      "type": "object"
+    },
+    "TranscriptionResult": {
+      "description": "Complete transcription result with metadata.",
+      "properties": {
+        "text": {
+          "title": "Text",
+          "type": "string"
+        },
+        "segments": {
+          "items": {
+            "$ref": "#/$defs/Segment"
+          },
+          "title": "Segments",
+          "type": "array"
+        },
+        "language": {
+          "title": "Language",
+          "type": "string"
+        },
+        "language_probability": {
+          "title": "Language Probability",
+          "type": "number"
+        },
+        "duration": {
+          "title": "Duration",
+          "type": "number"
+        },
+        "model_used": {
+          "title": "Model Used",
+          "type": "string"
+        },
+        "word_count": {
+          "title": "Word Count",
+          "type": "integer"
+        },
+        "processing_time": {
+          "title": "Processing Time",
+          "type": "number"
+        },
+        "language_detection": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LanguageDetectionResult"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "text",
+        "segments",
+        "language",
+        "language_probability",
+        "duration",
+        "model_used",
+        "word_count",
+        "processing_time"
+      ],
+      "title": "TranscriptionResult",
+      "type": "object"
+    },
+    "VideoMetadata": {
+      "description": "Basic video file information and metadata.",
+      "properties": {
+        "file_path": {
+          "description": "Path to the source video file",
+          "title": "File Path",
+          "type": "string"
+        },
+        "file_name": {
+          "description": "Original filename of the video",
+          "title": "File Name",
+          "type": "string"
+        },
+        "file_size_bytes": {
+          "description": "File size in bytes",
+          "title": "File Size Bytes",
+          "type": "integer"
+        },
+        "file_size_mb": {
+          "description": "File size in megabytes",
+          "title": "File Size Mb",
+          "type": "number"
+        },
+        "duration": {
+          "description": "Total video duration in seconds",
+          "title": "Duration",
+          "type": "number"
+        },
+        "duration_str": {
+          "description": "Formatted duration (HH:MM:SS)",
+          "title": "Duration Str",
+          "type": "string"
+        },
+        "width": {
+          "description": "Video width in pixels",
+          "title": "Width",
+          "type": "integer"
+        },
+        "height": {
+          "description": "Video height in pixels",
+          "title": "Height",
+          "type": "integer"
+        },
+        "fps": {
+          "description": "Frames per second",
+          "title": "Fps",
+          "type": "number"
+        },
+        "frame_count": {
+          "description": "Total number of frames",
+          "title": "Frame Count",
+          "type": "integer"
+        },
+        "format": {
+          "description": "Video format/container",
+          "title": "Format",
+          "type": "string"
+        },
+        "codec": {
+          "description": "Video codec",
+          "title": "Codec",
+          "type": "string"
+        },
+        "bitrate": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Video bitrate in bps",
+          "title": "Bitrate"
+        },
+        "color_space": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Color space (e.g., yuv420p)",
+          "title": "Color Space"
+        },
+        "has_audio": {
+          "description": "Whether video contains audio track",
+          "title": "Has Audio",
+          "type": "boolean"
+        },
+        "audio_codec": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Audio codec if present",
+          "title": "Audio Codec"
+        },
+        "audio_sample_rate": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Audio sample rate in Hz",
+          "title": "Audio Sample Rate"
+        },
+        "audio_channels": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Number of audio channels",
+          "title": "Audio Channels"
+        }
+      },
+      "required": [
+        "file_path",
+        "file_name",
+        "file_size_bytes",
+        "file_size_mb",
+        "duration",
+        "duration_str",
+        "width",
+        "height",
+        "fps",
+        "frame_count",
+        "format",
+        "codec",
+        "has_audio"
+      ],
+      "title": "VideoMetadata",
+      "type": "object"
+    },
+    "VisualAnalysisResult": {
+      "description": "Complete visual analysis results.",
+      "properties": {
+        "total_scenes": {
+          "title": "Total Scenes",
+          "type": "integer"
+        },
+        "total_frames_extracted": {
+          "title": "Total Frames Extracted",
+          "type": "integer"
+        },
+        "total_frames_processed": {
+          "title": "Total Frames Processed",
+          "type": "integer"
+        },
+        "overall_success_rate": {
+          "title": "Overall Success Rate",
+          "type": "number"
+        },
+        "scene_analyses": {
+          "items": {
+            "$ref": "#/$defs/SceneFrameAnalysis"
+          },
+          "title": "Scene Analyses",
+          "type": "array"
+        },
+        "overall_quality_distribution": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Overall Quality Distribution",
+          "type": "object"
+        },
+        "average_quality_score": {
+          "title": "Average Quality Score",
+          "type": "number"
+        },
+        "best_frames_per_scene": {
+          "items": {
+            "$ref": "#/$defs/ExtractedFrame"
+          },
+          "title": "Best Frames Per Scene",
+          "type": "array"
+        },
+        "video_duration": {
+          "title": "Video Duration",
+          "type": "number"
+        },
+        "extraction_method": {
+          "title": "Extraction Method",
+          "type": "string"
+        },
+        "processing_time": {
+          "title": "Processing Time",
+          "type": "number"
+        }
+      },
+      "required": [
+        "total_scenes",
+        "total_frames_extracted",
+        "total_frames_processed",
+        "overall_success_rate",
+        "scene_analyses",
+        "overall_quality_distribution",
+        "average_quality_score",
+        "best_frames_per_scene",
+        "video_duration",
+        "extraction_method",
+        "processing_time"
+      ],
+      "title": "VisualAnalysisResult",
+      "type": "object"
+    },
+    "WordTimestamp": {
+      "description": "Word-level timestamp information.",
+      "properties": {
+        "word": {
+          "title": "Word",
+          "type": "string"
+        },
+        "start": {
+          "title": "Start",
+          "type": "number"
+        },
+        "end": {
+          "title": "End",
+          "type": "number"
+        },
+        "confidence": {
+          "title": "Confidence",
+          "type": "number"
+        }
+      },
+      "required": [
+        "word",
+        "start",
+        "end",
+        "confidence"
+      ],
+      "title": "WordTimestamp",
+      "type": "object"
+    }
+  },
+  "description": "JSON Schema for video_analysis_result in Deep Brief video analysis",
+  "properties": {
+    "analysis_id": {
+      "description": "Unique identifier for this analysis",
+      "title": "Analysis Id",
+      "type": "string"
+    },
+    "analysis_version": {
+      "description": "Version of the analysis schema",
+      "title": "Analysis Version",
+      "type": "string"
+    },
+    "video_metadata": {
+      "$ref": "#/$defs/VideoMetadata",
+      "description": "Source video metadata"
+    },
+    "processing_metadata": {
+      "$ref": "#/$defs/ProcessingMetadata",
+      "description": "Processing pipeline metadata"
+    },
+    "scene_detection": {
+      "$ref": "#/$defs/SceneDetectionResult",
+      "description": "Scene detection results"
+    },
+    "transcription": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/TranscriptionResult"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Speech transcription results"
+    },
+    "overall_speech_metrics": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/OverallSpeechMetrics"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Overall speech analysis"
+    },
+    "visual_analysis": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/VisualAnalysisResult"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Visual analysis results"
+    },
+    "scene_analyses": {
+      "description": "Detailed analysis results for each scene",
+      "items": {
+        "$ref": "#/$defs/SceneAnalysis"
+      },
+      "title": "Scene Analyses",
+      "type": "array"
+    },
+    "quality_assessment": {
+      "$ref": "#/$defs/QualityAssessment",
+      "description": "Overall quality assessment"
+    },
+    "content_summary": {
+      "$ref": "#/$defs/ContentSummary",
+      "description": "High-level content summary"
+    },
+    "analysis_insights": {
+      "$ref": "#/$defs/AnalysisInsights",
+      "description": "Insights and recommendations"
+    },
+    "export_timestamp": {
+      "description": "When this result was exported",
+      "format": "date-time",
+      "title": "Export Timestamp",
+      "type": "string"
+    },
+    "export_format_version": {
+      "default": "1.0.0",
+      "description": "Version of the export format",
+      "title": "Export Format Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "analysis_id",
+    "analysis_version",
+    "video_metadata",
+    "processing_metadata",
+    "scene_detection",
+    "quality_assessment",
+    "content_summary",
+    "analysis_insights"
+  ],
+  "title": "Video Analysis Result",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://deep-brief.ai/schemas/video_analysis_result.json"
+}

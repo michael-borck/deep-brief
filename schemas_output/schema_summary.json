@@ -1,0 +1,14 @@
+{
+  "schemas_generated": 2,
+  "schema_files": [
+    "schemas/video_analysis_result.json",
+    "schemas/analysis_report.json"
+  ],
+  "documentation_file": "schema_documentation.md",
+  "validation_results": {
+    "video_analysis_result": true,
+    "analysis_report": true
+  },
+  "all_schemas_valid": true,
+  "output_directory": "schemas_output"
+}

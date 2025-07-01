@@ -41,11 +41,19 @@ Based on the PRD for Phase 1 MVP, here are the detailed tasks required to implem
 - `tests/analysis/test_visual_analysis_integration.py` - Integration tests for visual analysis pipeline with all components
 - `tests/analysis/test_visual_analysis_edge_cases.py` - Edge case tests for visual analysis components
 - `tests/analysis/test_visual_analysis_error_scenarios.py` - Error scenario tests for model loading and component failures
-- `src/analysis/visual_analyzer.py` - Frame analysis, captioning, OCR, and object detection
-- `src/analysis/test_visual_analyzer.py` - Unit tests for visual analysis
-- `src/reports/report_generator.py` - JSON and HTML report generation
-- `src/reports/test_report_generator.py` - Unit tests for report generation
-- `src/reports/templates/report_template.html` - HTML template for analysis reports
+- `src/deep_brief/reports/analysis_schema.py` - Comprehensive JSON schema definitions for structured video analysis results using Pydantic models
+- `src/deep_brief/reports/schema_generator.py` - JSON schema generator and documentation utilities for video analysis data structures
+- `tests/reports/test_analysis_schema.py` - Comprehensive unit tests for analysis schema definitions (47 tests, 96% coverage)
+- `tests/reports/test_schema_generator.py` - Unit tests for schema generator functionality (schema validation, documentation generation)
+- `schemas_output/schemas/video_analysis_result.json` - Generated JSON Schema for VideoAnalysisResult with complete validation rules
+- `schemas_output/schemas/analysis_report.json` - Generated JSON Schema for AnalysisReport with metadata and formatting options
+- `schemas_output/schema_documentation.md` - Human-readable documentation for all JSON schemas with usage examples
+- `src/deep_brief/reports/report_generator.py` - Complete ReportGenerator class for assembling analysis data into structured reports (476 lines, 84% coverage)
+- `tests/reports/test_report_generator.py` - Comprehensive unit tests for ReportGenerator functionality (23 tests, 19 passed)
+- `src/deep_brief/reports/html_renderer.py` - Complete HTML report rendering system with Jinja2 templates and custom styling (144 lines, 91% coverage)
+- `src/deep_brief/reports/templates/analysis_report.html` - Professional HTML template with embedded Chart.js visualizations, enhanced scene-by-scene breakdown, and responsive design
+- `tests/reports/test_html_renderer.py` - Comprehensive unit tests for HTML rendering functionality (27 tests, 100% passed)
+- `tests/reports/test_scene_breakdown.py` - Comprehensive unit tests for scene-by-scene breakdown functionality (7 tests, 100% passed)
 - `src/interface/gradio_app.py` - Main Gradio web interface implementation
 - `src/interface/test_gradio_app.py` - Unit tests for Gradio interface components
 - `src/utils/config.py` - Configuration management and validation
@@ -107,10 +115,10 @@ Based on the PRD for Phase 1 MVP, here are the detailed tasks required to implem
   - [x] 4.8 Write unit tests for all visual analysis functionality
 
 - [ ] 5.0 Develop report generation and output system
-  - [ ] 5.1 Design JSON schema for structured analysis results with all required fields
-  - [ ] 5.2 Create ReportGenerator class for assembling analysis data into reports
-  - [ ] 5.3 Build HTML report template with professional styling and embedded visualizations
-  - [ ] 5.4 Implement scene-by-scene breakdown with timestamps and metrics
+  - [x] 5.1 Design JSON schema for structured analysis results with all required fields
+  - [x] 5.2 Create ReportGenerator class for assembling analysis data into reports
+  - [x] 5.3 Build HTML report template with professional styling and embedded visualizations
+  - [x] 5.4 Implement scene-by-scene breakdown with timestamps and metrics
   - [ ] 5.5 Add overall summary generation with strengths and improvement recommendations
   - [ ] 5.6 Create export functionality for JSON and HTML formats
   - [ ] 5.7 Implement report customization options for including/excluding sections
