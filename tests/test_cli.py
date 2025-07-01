@@ -1,7 +1,7 @@
 """Tests for CLI functionality."""
 
-import pytest
 from typer.testing import CliRunner
+
 from deep_brief.cli import app
 
 
@@ -41,13 +41,18 @@ def test_cli_with_video() -> None:
 def test_cli_with_options() -> None:
     """Test CLI with various options."""
     runner = CliRunner()
-    result = runner.invoke(app, [
-        "analyze",
-        "test.mp4", 
-        "--output", "/tmp/output",
-        "--config", "config.yaml",
-        "--verbose"
-    ])
+    result = runner.invoke(
+        app,
+        [
+            "analyze",
+            "test.mp4",
+            "--output",
+            "/tmp/output",
+            "--config",
+            "config.yaml",
+            "--verbose",
+        ],
+    )
     assert result.exit_code == 0
     assert "Analyzing video: test.mp4" in result.stdout
     assert "Output directory: /tmp/output" in result.stdout

@@ -1,98 +1,173 @@
-# DeepBrief Development Guidelines
+# CLAUDE.md
 
-## Modern Python Toolchain
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-This project uses a modern Python development toolchain with strict type checking and code quality standards:
+## Essential Development Commands
 
-### Core Tools
-- **uv** - Fast Python package installer and resolver
-- **ruff** - Fast Python linter and formatter
-- **basedpyright** - Static type checker (Pylance/Pyright fork)
-- **pytest** - Testing framework
-- **twine** - Package publishing tool for PyPI
-
-### Development Standards
-- **Type Hints**: All functions must have complete type annotations
-- **No Type Checker Workarounds**: Fix type issues properly, don't use `# type: ignore`
-- **Modern Patterns**: Use Pydantic for data validation, no legacy patterns
-- **Code Quality**: Run ruff for formatting and linting before commits
-- **Testing**: Write tests as we develop, not after
-- **Testing Framework**: Use pytest exclusively, NOT unittest
-- **Mock Data**: When generating test mock data, use pytest fixtures and patterns
-- **Modern Packaging**: Use pyproject.toml exclusively, NO setup.py files
-
-### Commands to Run
+### Setup and Environment
 ```bash
-# Install dependencies (CPU-only for development)
+# Clone and setup development environment
+uv venv && source .venv/bin/activate
 uv pip install -e ".[dev]"
 
-# Format and lint code
-ruff format .
-ruff check .
-
-# Type checking
-basedpyright
-
-# Run tests
-pytest -v
-
-# Run all checks together
-ruff format . && ruff check . && basedpyright && pytest -v
-
-# Build package (modern way)
-uv build
-
-# Upload to PyPI (use twine, not uv)
-# Test first:
-twine upload --repository testpypi dist/*
-# Then production:
-twine upload dist/*
-
-# Package is live at: https://pypi.org/project/deep-brief/
+# Verify installation
+deep-brief --help
 ```
 
-### GPU Migration (Future)
-When ready to deploy on GPU-enabled hardware:
+### Code Quality (Run ALL before committing)
+```bash
+# Format, lint, type check, and test in one command
+ruff format . && ruff check . && basedpyright && pytest -v
 
+# Individual commands
+ruff format .           # Format code
+ruff check .           # Lint with auto-fix: ruff check . --fix
+basedpyright           # Strict type checking
+pytest -v              # Run tests with verbose output
+```
+
+### Testing
+```bash
+# Run all tests
+pytest -v
+
+# Run tests by category
+pytest -m "not slow"           # Skip slow tests
+pytest -m video               # Video processing tests only
+pytest -m "ai or audio"       # AI/ML and audio tests
+
+# Run single test
+pytest tests/test_config.py::test_load_config -v
+
+# Coverage report
+pytest --cov-report=html      # Generate HTML coverage report
+```
+
+### Sample Video Generation
+```bash
+# Generate test videos (requires espeak for speech synthesis)
+python3 scripts/generate_test_videos.py
+
+# Install espeak for realistic speech samples
+sudo apt install espeak      # Ubuntu/Debian
+brew install espeak          # macOS
+```
+
+### Application Commands
+```bash
+deep-brief --help            # Show all commands
+deep-brief version           # Show version
+deep-brief config --all      # Show full configuration
+deep-brief analyze           # Launch web interface (when implemented)
+```
+
+## Architecture Overview
+
+### Core Architecture Pattern
+This is a **video analysis pipeline** application with a modular, layered architecture:
+
+**Entry Points:**
+- CLI (`src/deep_brief/cli.py`) - Typer-based command interface
+- Web UI (`src/deep_brief/interface/`) - Gradio-based web interface (planned)
+
+**Processing Pipeline:**
+1. **Core** (`src/deep_brief/core/`) - Video processing, audio extraction, scene detection
+2. **Analysis** (`src/deep_brief/analysis/`) - Speech transcription, visual analysis, AI feedback
+3. **Reports** (`src/deep_brief/reports/`) - JSON/HTML report generation
+
+**Configuration System:**
+- Pydantic-based hierarchical configuration (`src/deep_brief/utils/config.py`)
+- YAML files with environment variable overrides
+- Nested settings: `DEEP_BRIEF_TRANSCRIPTION__MODEL=whisper-large`
+
+### Key Design Principles
+
+**Modern Python Toolchain:**
+- Uses `uv` instead of pip for fast package management
+- `pyproject.toml` only (no setup.py or requirements.txt)
+- Strict type checking with basedpyright
+- CPU-only dependencies by default, GPU optional with `[gpu]` extra
+
+**Configuration Management:**
+- All settings centralized in Pydantic models with validation
+- Environment variables override file settings using `__` delimiter
+- Multiple config file locations checked automatically
+
+**Testing Strategy:**
+- Tests mirror `src/` structure exactly
+- Pytest markers for test categorization (video, audio, ai, slow)
+- Custom fixtures for video processing tests
+- Skip tests when dependencies (ffmpeg, espeak) unavailable
+
+### Development State
+
+**✅ Complete:**
+- Project infrastructure and packaging
+- Configuration system with full validation
+- CLI framework with rich output
+- Test infrastructure with video fixtures
+- PyPI publication pipeline
+
+**🚧 In Progress (Phase 1 MVP):**
+- Core video processing pipeline (`src/core/`)
+- Speech transcription with Whisper (`src/analysis/`)
+- Report generation system (`src/reports/`)
+
+**📋 Planned:**
+- Gradio web interface
+- Advanced AI analysis features
+- Production deployment configurations
+
+### Critical Files
+
+**Configuration:** `src/deep_brief/utils/config.py` - Complete Pydantic-based config system with validation
+**CLI Entry:** `src/deep_brief/cli.py` - Main application interface
+**Task Tracking:** `tasks/tasks-prd-phase1-mvp.md` - Detailed implementation roadmap
+**Dependencies:** `pyproject.toml` - All project configuration and dependencies
+
+### Video Sample Management
+
+- **Test fixtures** (`tests/fixtures/`): Small videos for automated testing (committed to git)
+- **Development samples** (`samples/`): Large realistic videos (gitignored)
+- Generate with: `python3 scripts/generate_test_videos.py`
+- Requires espeak for speech synthesis, falls back to tone audio otherwise
+
+### Common Gotchas
+
+**Package Installation:** Always use `uv pip install -e ".[dev]"` for development
+**Type Checking:** Uses basedpyright (not mypy) in strict mode
+**Config Loading:** Environment variables use double underscore: `DEEP_BRIEF_PROCESSING__MAX_VIDEO_SIZE_MB`
+**Test Running:** Use pytest markers to control which tests run during development
+**Video Processing:** All samples currently use synthetic speech via espeak
+
+### GPU Migration (Future)
 ```bash
 # Install GPU-accelerated dependencies
 uv pip install -e ".[gpu]" --extra-index-url https://download.pytorch.org/whl/cu121
-
-# No code changes needed - PyTorch automatically detects and uses GPU
-# Models will automatically use CUDA when available
 ```
+All APIs remain identical - PyTorch automatically detects and uses GPU when available.
 
-**Migration Notes:**
-- All APIs remain identical (torch.device() handles CPU/GPU automatically)
-- Whisper, Transformers models automatically detect GPU availability
-- Performance improvement without code changes
-- Test on CPU first, then deploy to GPU for production speed
+## Task Implementation Process
 
-### Project Structure
-```
-src/
-├── deep_brief/
-│   ├── core/          # Video processing pipeline
-│   ├── analysis/      # Speech and visual analysis
-│   ├── reports/       # Report generation
-│   ├── interface/     # Gradio web interface
-│   └── utils/         # Utilities and configuration
-config/                # Configuration files
-tests/                 # Test files (mirror src structure)
-docs/                  # Documentation
-```
+**CRITICAL:** This project follows a strict task-by-task development process:
 
-### Dependencies
-- **Pydantic** for data validation and settings management
-- **FastAPI** patterns for dependency injection where applicable
-- **Modern async/await** patterns where beneficial
-- **Pathlib** instead of os.path
-- **Rich** for better CLI output and progress bars
+### Task Processing Protocol
+1. **One sub-task at a time** - Never start the next sub-task until user gives explicit permission
+2. **Stop and ask** - After completing each sub-task, stop and wait for user approval before continuing
+3. **Update task list immediately** - Mark completed sub-tasks `[x]` in `tasks/tasks-prd-phase1-mvp.md`
+4. **Parent task completion** - Only mark parent tasks `[x]` when ALL sub-tasks underneath are complete
 
-### Code Quality Requirements
-1. All code must pass basedpyright without errors
-2. All code must be formatted with ruff
-3. All functions must have docstrings
-4. All public APIs must have comprehensive type hints
-5. Tests must be written for all new functionality
-6. No deprecated patterns or workarounds
+### Task List Management
+- **Primary task list:** `tasks/tasks-prd-phase1-mvp.md` - Contains all Phase 1 MVP implementation tasks
+- **Task processing guidelines:** `docs/ai-dev-tasks/3-process-task-list.mdc` - Detailed protocol rules
+- **Relevant Files section** - Keep updated with every file created or modified
+
+### Implementation Workflow
+1. Check task list to identify next uncompleted sub-task
+2. Ask user permission before starting implementation
+3. Implement the single sub-task completely
+4. Update task list marking sub-task as `[x]` completed
+5. Update "Relevant Files" section if new files created/modified
+6. Stop and ask user for permission to continue to next sub-task
+
+**Never implement multiple sub-tasks without explicit user approval for each one.**

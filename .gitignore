@@ -184,6 +184,9 @@ models/
 *.m4a
 !tests/fixtures/sample*  # Keep small test samples
 
+# Development samples (not committed)
+samples/
+
 # Generated reports and outputs
 output/
 reports/

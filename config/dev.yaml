@@ -1,0 +1,35 @@
+# Development Configuration
+# This configuration enables debug mode and verbose logging for development
+
+# Application settings
+app_name: "DeepBrief (Development)"
+debug: true
+
+# Inherit most settings from default config, override specific ones
+processing:
+  max_video_size_mb: 100       # Smaller limit for testing
+  cleanup_temp_files: false    # Keep temp files for debugging
+
+# More sensitive scene detection for testing
+scene_detection:
+  threshold: 0.3               # More sensitive
+  min_scene_duration: 1.0      # Shorter scenes for testing
+
+# Development transcription settings
+transcription:
+  model: "whisper-tiny"        # Faster model for development
+  temperature: 0.1             # Slightly more randomness for testing
+
+# Analysis settings for development
+analysis:
+  confidence_threshold: 0.5    # Lower threshold for testing
+
+# Development logging - very verbose
+logging:
+  level: "DEBUG"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(funcName)s:%(lineno)d - %(message)s"
+  file_enabled: true
+  file_path: "logs/dev.log"
+  max_bytes: 5000000           # 5MB
+  backup_count: 3
+  console_enabled: true

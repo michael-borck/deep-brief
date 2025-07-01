@@ -1,0 +1,73 @@
+# DeepBrief Configuration File
+# This file contains the default configuration for the DeepBrief application.
+# You can override these settings with environment variables using the DEEP_BRIEF_ prefix.
+
+# Application settings
+app_name: "DeepBrief"
+debug: false
+
+# Video processing configuration
+processing:
+  max_video_size_mb: 500
+  supported_formats:
+    - "mp4"
+    - "mov"
+    - "avi"
+    - "webm"
+  temp_dir: "temp"
+  cleanup_temp_files: true
+
+# Scene detection settings
+scene_detection:
+  method: "threshold"  # threshold or adaptive
+  threshold: 0.4       # 0.1-0.9, lower = more scenes detected
+  min_scene_duration: 2.0      # minimum seconds per scene
+  fallback_interval: 30.0      # fallback if no scenes detected
+
+# Audio processing settings
+audio:
+  sample_rate: 16000   # Hz, required by Whisper
+  channels: 1          # mono audio
+  noise_reduction: false
+  normalize_audio: true
+
+# Speech transcription settings
+transcription:
+  model: "whisper-base"        # whisper model size
+  language: "auto"             # auto-detect or specific language code
+  word_timestamps: true        # enable word-level timing
+  temperature: 0.0             # sampling temperature (0.0 = deterministic)
+  device: "auto"               # auto, cpu, or cuda
+
+# Analysis settings
+analysis:
+  filler_words:
+    - "um"
+    - "uh"
+    - "like"
+    - "you know"
+    - "so"
+    - "actually"
+    - "basically"
+  target_wpm_range: [140, 160]  # ideal speaking rate range
+  sentiment_analysis: true
+  confidence_threshold: 0.7
+
+# Output settings
+output:
+  formats:
+    - "json"
+    - "html"
+  include_frames: true
+  frame_quality: 80            # JPEG quality 1-100
+  report_template: "default"
+
+# Logging configuration
+logging:
+  level: "INFO"                # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file_enabled: true
+  file_path: "logs/deep_brief.log"
+  max_bytes: 10000000          # 10MB log file size
+  backup_count: 5              # number of backup files
+  console_enabled: true
